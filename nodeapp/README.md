@@ -1,162 +1,105 @@
-# 🐳 Docker Notes & Reference Guide
+# Node.js Application Deployment with Nginx & PM2 (Amazon Linux / RHEL-based)
 
-A complete, structured, and beginner-to-advanced guide to **Docker**, covering core concepts, commands, architecture, networking, Docker Compose, Dockerfiles, volumes, security, and best practices.
-
-This repository is intended for:
-- 📘 Learning Docker from scratch
-- 🧪 Hands-on practice
-- 🎯 Interview preparation
-- 🚀 Real-world project reference
+This project demonstrates how to deploy a Node.js application on a Linux server using **Nginx as a reverse proxy** and **PM2 as a process manager**.
 
 ---
 
-## 📌 Table of Contents
-
-1. Introduction to Docker  
-2. Docker Installation & Verification  
-3. Docker Images & Containers  
-4. Docker Image Layers  
-5. Port Binding  
-6. Environment Variables  
-7. Troubleshooting & Debugging  
-8. Docker Networking  
-9. Docker vs Virtual Machines  
-10. Developing Apps with Docker  
-11. Docker Compose  
-12. Dockerfile & App Dockerization  
-13. Docker Hub & Image Publishing  
-14. Docker Volumes & Persistence  
-15. Backup & Restore  
-16. Docker Architecture  
-17. Image vs Container  
-18. Advanced Docker Concepts  
-19. Cleanup & Pruning  
-20. Helper Flags & Cheatsheet
+## 🚀 Tech Stack
+- Node.js
+- NPM
+- Nginx
+- PM2
+- Linux (yum-based OS – Amazon Linux / RHEL / CentOS)
 
 ---
 
-## 1️⃣ Introduction to Docker
-
-Docker is a containerization platform that allows applications to be packaged with all dependencies and run consistently across different environments.
+## 📌 Prerequisites
+- Linux server with sudo access
+- Open port **80** (HTTP) and **3000** (Node app – internal)
+- Basic knowledge of terminal & Linux commands
 
 ---
 
-## 2️⃣ Installation & Verification
+## 🛠️ Step-by-Step Setup
 
+### 1️⃣ System Update & Upgrade
 ```bash
-docker -v
+sudo yum update -y
+sudo yum upgrade -y
 ```
 
----
-
-## 3️⃣ Docker Images & Containers
-
+### 2️⃣ Install Node.js & NPM
 ```bash
-docker pull <image-name>
-docker run -d <image-name>
-docker ps -a
-docker stop <id>
-docker rm <id>
+sudo yum install nodejs -y
+node -v
+npm -v
 ```
 
----
-
-## 4️⃣ Docker Image Layers
-
-```
-Container Layer (Read/Write)
----------------------------
-Layer 2 (Read-only)
-Layer 1 (Read-only)
-Base Layer (Linux OS)
-```
-
----
-
-## 5️⃣ Port Binding
-
+### 3️⃣ Create Node.js Application
 ```bash
-docker run -p HOST_PORT:CONTAINER_PORT <image>
+mkdir nodeapp
+cd nodeapp
+nano package.json
+nano index.js
+npm install
+node index.js
 ```
 
----
+> App runs on port **3000**
 
-## 6️⃣ Environment Variables
-
+### 4️⃣ Install & Configure Nginx
 ```bash
-docker run -e MYSQL_ROOT_PASSWORD=secret mysql
+sudo yum install nginx -y
+sudo service nginx start
+sudo nano /etc/nginx/nginx.conf
 ```
 
----
+Nginx reverse proxy config:
+```nginx
+location / {
+    proxy_pass http://localhost:3000;
+}
+```
 
-## 7️⃣ Troubleshooting & Debugging
-
+Restart Nginx:
 ```bash
-docker logs <id>
-docker exec -it <id> /bin/bash
-docker inspect <id>
+sudo service nginx restart
 ```
 
----
-
-## 8️⃣ Docker Networking
-
+### 5️⃣ Install PM2
 ```bash
-docker network ls
-docker network create my-network
+sudo npm install -g pm2
+pm2 --version
+pm2 start index.js
+pm2 stop index.js
 ```
 
 ---
 
-## 9️⃣ Docker vs VM
-
-| Docker | VM |
-|------|----|
-| Lightweight | Heavy |
-| Fast startup | Slow startup |
+## ✅ Final Result
+- Node app managed by PM2
+- Nginx routes traffic from port 80 to 3000
+- Application accessible via public IP or domain
 
 ---
 
-## 🔟 Docker Compose
-
+## 📚 Useful PM2 Commands
 ```bash
-docker compose up -d
-docker compose down
+pm2 list
+pm2 restart index.js
+pm2 logs
+pm2 delete index.js
 ```
 
 ---
 
-## 1️⃣1️⃣ Dockerfile Example
-
-```Dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY . .
-RUN npm install
-CMD ["node", "app.js"]
-```
+## 🧠 Key Learnings
+- Nginx reverse proxy
+- PM2 process management
+- Production-ready Node.js deployment
 
 ---
 
-## 1️⃣2️⃣ Docker Volumes
-
-```bash
-docker volume create myvol
-docker run -v myvol:/data <image>
-```
-
----
-
-## 1️⃣3️⃣ Cleanup
-
-```bash
-docker system prune
-```
-
----
-
-## ✅ Final Notes
-
-✔ Beginner-friendly  
-✔ Interview-ready  
-✔ Production concepts included  
+## 📌 Author
+**Dnyaneshwar Bhandari**  
+Cloud & DevOps Enthusiast 🚀
