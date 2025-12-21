@@ -1,23 +1,10 @@
-# Node.js Application Deployment with Nginx & PM2 (Amazon Linux / RHEL-based)
+# Node.js Application Deployment
 
-This project demonstrates how to deploy a Node.js application on a Linux server using **Nginx as a reverse proxy** and **PM2 as a process manager**.
-
+This project demonstrates how to deploy a Node.js application on a Linux server using **Nginx as a reverse proxy** and **PM2 as a process manager runs application in background**.
 ---
-
-## 🚀 Tech Stack
-- Node.js
-- NPM
-- Nginx
-- PM2
-- Linux (yum-based OS – Amazon Linux / RHEL / CentOS)
-
----
-
 ## 📌 Prerequisites
 - Linux server with sudo access
 - Open port **80** (HTTP) and **3000** (Node app – internal)
-- Basic knowledge of terminal & Linux commands
-
 ---
 
 ## 🛠️ Step-by-Step Setup
