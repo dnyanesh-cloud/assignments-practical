@@ -1,6 +1,6 @@
 # Node.js Application Deployment
 
-###This project demonstrates how to deploy a Node.js application on a Linux server using **Nginx as a reverse proxy** and **PM2 as a process manager runs application in background**.
+### This project demonstrates how to deploy a Node.js application on a Linux server using **Nginx as a reverse proxy** and **PM2 as a process manager runs application in background**.
 ---
 ## 📌 Prerequisites
 - Linux server with sudo access
@@ -56,6 +56,7 @@ pm2 stop index.js
 ```
 ## ✅ Final Result
 
-![Node App Screenshot](./nodeapp/node1.png)
+<img src="./node.png" alt="Node App hosted" width="500"/>
+
 
 
