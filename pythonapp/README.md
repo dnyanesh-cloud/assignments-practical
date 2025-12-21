@@ -106,4 +106,7 @@ sudo service nginx reload
 ```
 http://<server-ip>
 ```
-![Python App hsted](./python1.png)
+<p align="center">
+  <img src="./python1.png" width="600">
+</p>
+
